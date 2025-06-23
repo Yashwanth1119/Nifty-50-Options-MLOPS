@@ -167,4 +167,4 @@ docker run -p 8501:8501 nifty-options
 ## 🧪 Sample Data
 Download a sample option chain file here or upload your own.
 
-![Dashboard Screenshot](./workspaces/Nifty-50-Options-MLOPS/Screenshot 2025-06-23 171153.png)
+![Dashboard Screenshot](Screenshot 2025-06-23 171153.png)
