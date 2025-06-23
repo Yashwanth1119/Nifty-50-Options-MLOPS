@@ -168,3 +168,4 @@ docker run -p 8501:8501 nifty-options
 Download a sample option chain file here or upload your own.
 
 ![Dashboard Screenshot](Screenshot 2025-06-23 171153.png)
+![Streamlit Screenshot](assets/output.png)
