@@ -1,8 +1,9 @@
-import joblib
 import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
-def predict(data: pd.DataFrame, model_path: str, scaler_path: str):
-    model = joblib.load(model_path)
-    scaler = joblib.load(scaler_path)
-    X = scaler.transform(data)
-    return model.predict(X)
+def make_prediction(df, model, scaler):
+    df_clean = df.copy()
+    df_clean = df_clean.dropna()
+    df_scaled = scaler.transform(df_clean)
+    preds = model.predict(df_scaled)
+    return preds

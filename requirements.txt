@@ -1,6 +1,10 @@
 pandas
-streamlit
-pymongo
+numpy
 scikit-learn
-mlflow
+seaborn
+matplotlib
+streamlit
 prefect
+joblib
+mlflow
+python-dotenv

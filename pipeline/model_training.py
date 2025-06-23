@@ -1,27 +1,33 @@
+# pipeline/model_training.py
+
+import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-import joblib
+import os
 
-def train_model(df, features, target, model_path, scaler_path):
-    X = df[features]
-    y = df[target]
+def train_and_save_model(X, y, model_path="artifacts/nifty_rf_model.joblib", scaler_path="artifacts/scaler.joblib"):
+    # 🔀 Train/test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+    # 🧼 Scaling
     scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
-    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
+    # 🧠 Model
     model = RandomForestClassifier(n_estimators=100, random_state=42)
-    model.fit(X_train, y_train)
+    model.fit(X_train_scaled, y_train)
 
-    scores = cross_val_score(model, X_scaled, y, cv=5)
-    print("Cross-validation Accuracy:", scores.mean())
+    # ✅ Evaluate
+    y_pred = model.predict(X_test_scaled)
+    print("📊 Classification Report:\n", classification_report(y_test, y_pred))
 
-    y_pred = model.predict(X_test)
-    print("\nClassification Report:\n", classification_report(y_test, y_pred))
-
+    # 💾 Save
+    os.makedirs(os.path.dirname(model_path), exist_ok=True)
     joblib.dump(model, model_path)
     joblib.dump(scaler, scaler_path)
-    return model
+
+    print(f"✅ Model saved to: {model_path}")
+    return model, scaler
