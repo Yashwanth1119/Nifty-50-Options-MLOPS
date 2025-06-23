@@ -152,7 +152,7 @@ If you use .env, add relevant values in Render's Environment tab.
 python main.py
 
 # Start streamlit
-streamlit run streamlit_app/app.py
+python -m streamlit run streamlit_app/app.py
 
 # Prefect agent
 prefect agent start
